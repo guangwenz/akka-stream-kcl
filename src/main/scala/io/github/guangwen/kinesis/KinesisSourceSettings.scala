@@ -9,7 +9,8 @@ class KinesisSourceSettings(
   val bufferSize: Int,
   val backPressureTimeOut: FiniteDuration,
   val terminateGracePeriod: FiniteDuration,
-  val idleTimeBetweenReadsInMillis:Long=1000L)
+  val idleTimeBetweenReadsInMillis: Long = 1000L){
+}
 
 object KinesisSourceSettings {
   private def getWorkerId: String = s"${
@@ -35,5 +36,9 @@ object KinesisSourceSettings {
 
   def apply(applicationName: String, streamName: String, bufferSize: Int, backPressureTimeout: FiniteDuration, terminateGraceTimeout: FiniteDuration): KinesisSourceSettings = {
     new KinesisSourceSettings(applicationName, streamName, getWorkerId, bufferSize, backPressureTimeout, terminateGraceTimeout)
+  }
+
+  def apply(applicationName: String, streamName: String, bufferSize: Int, backPressureTimeout: FiniteDuration, terminateGraceTimeout: FiniteDuration, idleTimeBetweenReadsInMillis:Long): KinesisSourceSettings = {
+    new KinesisSourceSettings(applicationName, streamName, getWorkerId, bufferSize, backPressureTimeout, terminateGraceTimeout, idleTimeBetweenReadsInMillis)
   }
 }
