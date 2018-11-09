@@ -30,7 +30,7 @@ object KinesisSource {
         case (queue, watch) =>
           val semaphore = new Semaphore(1, true)
           val worker: Worker = new Worker.Builder()
-            .config(new KinesisClientLibConfiguration(applicationName, streamName, credentialProvider, workerId))
+            .config(new KinesisClientLibConfiguration(applicationName, streamName, credentialProvider, workerId).withIdleTimeBetweenReadsInMillis(settings.idleTimeBetweenReadsInMillis))
             .recordProcessorFactory(new IRecordProcessorFactory {
               override def createProcessor(): IRecordProcessor = RecordProcessor(terminateGracePeriod, { input =>
                 semaphore.acquire(1)

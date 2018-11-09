@@ -8,7 +8,8 @@ class KinesisSourceSettings(
   val workerId: String,
   val bufferSize: Int,
   val backPressureTimeOut: FiniteDuration,
-  val terminateGracePeriod: FiniteDuration)
+  val terminateGracePeriod: FiniteDuration,
+  val idleTimeBetweenReadsInMillis:Long=1000L)
 
 object KinesisSourceSettings {
   private def getWorkerId: String = s"${
